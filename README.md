@@ -1,6 +1,6 @@
 # Lab 1: Docker Basics and Cgroups Limits
-
-## 1) Download and Install Docker
+## PART 1
+### 1) Download and Install Docker
 ```bash
 sudo apt update
 sudo apt install docker.io -y
