@@ -65,45 +65,46 @@ docker volume create iti-volume
 ```bash
 docker run -d --name webserver-iti --network iti-network -p 8080:8080 -v iti-volume:/usr/share/nginx/html nginx:alpine
 ```
-### 5) Internal Container Configuration & Verification
+### 4) Internal Container Configuration & Verification
 
 To configure the custom index page and verify the Nginx server configuration from inside the container, an interactive shell session was used:
 
+
+#### 1. Access the container's shell
 ```bash
-# 1. Access the container's shell
 docker exec -it webserver-iti sh
 ```
 
-# 2. Navigate to the Nginx HTML directory
+#### 2. Navigate to the Nginx HTML directory
 ```bash
 cd /usr/share/nginx/html
 ```
 
-# 3. Inject the required text into the index.html file
+#### 3. Inject the required text into the index.html file
 ```bash
 echo "<h1>Lab 2 ITI - Tarek Abdelrahman</h1>" > index.html
 ```
-### 4) Edit Nginx Port Configuration using `vi`
+#### 4) Edit Nginx Port Configuration using `vi`
 
 To fulfill the requirement of publishing port 8080 from within the container
-# 1. Access the container's shell
+##### 1. Access the container's shell
 docker exec -it webserver-iti sh
 
-# 2. Open the default Nginx configuration file
+##### 2. Open the default Nginx configuration file
 vi /etc/nginx/conf.d/default.conf
 
-# 3. Inside vi, update the listen directives from 80 to 8080:
-# server {
-#     listen       8080;
-#     listen  [::]:8080;
-#     server_name  localhost;
-#     ...
+##### 3. Inside vi, update the listen directives from 80 to 8080:
+ server {
+     listen       8080;
+     listen  [::]:8080;
+     server_name  localhost;
+     ...
 
-# 4. Reload Nginx to apply the new port configuration
+##### 4. Reload Nginx to apply the new port configuration
 ```bash
 nginx -s reload
 ```
-# 5. Test the internal port (8080) using curl
+#### 5. Test the internal port (8080) using curl
 ```bash
 curl -I http://localhost:8080
 ```
